@@ -48,7 +48,6 @@ export const deleteTask = async (formData) => {
     await prisma.task.delete({
       where: { id },
     })
-    revalidatePath('/tasks')
     return { msg: 'success' }
   } catch {
     return { msg: 'error' }
