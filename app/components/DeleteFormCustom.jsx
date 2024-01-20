@@ -33,7 +33,7 @@ const DeleteFormCustom = ({ id }) => {
   }, [state.msg])
 
   return (
-    <form action={deleteTask}>
+    <form action={formAction}>
       <input type="hidden" name="id" value={id} />
       <DeleteBtn />
     </form>

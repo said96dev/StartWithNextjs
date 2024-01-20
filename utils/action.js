@@ -41,28 +41,35 @@ export const createTaskCustom = async (prevState, formData) => {
   }
 }
 
-export const deleteTask = async (formData) => {
+export const deleteTask = async (prevState, formData) => {
   await new Promise((resolve) => setTimeout(resolve, 2000))
   const id = formData.get('id')
   try {
     await prisma.task.delete({
       where: { id },
     })
+    revalidatePath('/tasks')
     return { msg: 'success' }
   } catch {
     return { msg: 'error' }
   }
 }
 
-export const updataTask = async (formData) => {
-  const id = formData.get('id')
-  const content = formData.get('content')
-  const completed = formData.get('completed')
-  await prisma.task.update({
-    where: { id },
-    data: { content, completed: completed === 'on' ? true : false },
-  })
-  revalidatePath('/tasks')
+export const updataTask = async (prevState, formData) => {
+  await new Promise((resolve) => setTimeout(resolve, 2000))
+  try {
+    const id = formData.get('id')
+    const content = formData.get('content')
+    const completed = formData.get('completed')
+    await prisma.task.update({
+      where: { id },
+      data: { content, completed: completed === 'on' ? true : false },
+    })
+    revalidatePath('/tasks')
+    return { msg: 'success' }
+  } catch (error) {
+    return { msg: 'error' }
+  }
 }
 
 export const getTaskById = async (id) => {
