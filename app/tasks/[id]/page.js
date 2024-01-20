@@ -5,7 +5,6 @@ import { getTaskById } from '../../../utils/action'
 
 const page = async ({ params }) => {
   const task = await getTaskById(params.id)
-  console.log(task)
   return (
     <>
       <div className="mb-16">
